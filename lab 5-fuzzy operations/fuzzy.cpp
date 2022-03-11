@@ -77,6 +77,30 @@ void fillValues(vector<FuzzyElement> &fuzzySet1, vector<FuzzyElement> &fuzzySet2
                 break;
             }
         }
+        if (notInB)
+        {
+            temp = fuzzySet1[i];
+            temp.membership = 0;
+            fuzzySet2.push_back(temp);
+        }
+    }
+    for (int i = 0; i < fuzzySet2.size(); i++)
+    {
+        bool notInA = true;
+        for (int j = 0; j < fuzzySet1.size(); j++)
+        {
+            if (fuzzySet1[j].domain == fuzzySet2[i].domain)
+            {
+                notInA = false;
+                break;
+            }
+        }
+        if (notInA)
+        {
+            temp = fuzzySet2[i];
+            temp.membership = 0;
+            fuzzySet1.push_back(temp);
+        }
     }
 }
 
@@ -92,11 +116,11 @@ int main()
     {
         cout << "Enter domain of element " << i + 1 << ": ";
         cin >> el.domain;
-    retakeInput:
+    retakeAInput:
         cout << "Enter member of element " << i + 1 << ": ";
         cin >> el.membership;
         if (el.membership > 1 || el.membership < 0)
-            goto retakeInput;
+            goto retakeAInput;
         fuzzySet1.push_back(el);
     }
     cout << "Enter size of fuzzy set B: ";
@@ -115,7 +139,7 @@ int main()
     fillValues(fuzzySet1, fuzzySet2);
     do
     {
-        cout << "Which operation would you like to perform?\n1.Union\n2.Intersection";
+        cout << "Which operation would you like to perform?\n1.Union\n2.Intersection\n";
         cin >> opt;
         switch (opt)
         {
