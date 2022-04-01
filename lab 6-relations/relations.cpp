@@ -29,6 +29,39 @@ bool checkSymmetric(vector<vector<int>> matrix)
     return true;
 }
 
+bool checkTransitive(vector<vector<int>> matrix)
+{
+    bool isTransitive = true;
+    for (int i = 0; i < matrix.size(); i++)
+    {
+        vector<int> currRow;
+        vector<int> currCol;
+        for (int j = 0; j < matrix.size(); j++)
+        {
+            if (matrix[i][j] == 1)
+                currRow.push_back(j);
+            if (matrix[j][i] == 1)
+                currCol.push_back(j);
+        }
+        for (int c = 0; c < currCol.size(); c++)
+        {
+            for (int r = 0; r < currRow.size(); r++)
+            {
+                if (matrix[currCol[c]][currRow[r]] == 0)
+                {
+                    isTransitive = false;
+                    break;
+                }
+            }
+            if (!isTransitive)
+                break;
+        }
+        if (!isTransitive)
+            break;
+    }
+    return isTransitive;
+}
+
 int main()
 {
     int size;
@@ -59,7 +92,7 @@ int main()
     char ans;
     while (runAgain)
     {
-        cout << "What operation would you like to perform?\n1. Check Reflexive\n2. Check Symmetric\n";
+        cout << "What operation would you like to perform?\n1. Check Reflexive\n2. Check Symmetric\n3. Check Transitive\n";
         cin >> opt;
         switch (opt)
         {
@@ -81,6 +114,16 @@ int main()
             else
             {
                 cout << "The relation is not symmetric.\n";
+            }
+            break;
+        case 3:
+            if (checkTransitive(relMatrix))
+            {
+                cout << "The relation is transitive.\n";
+            }
+            else
+            {
+                cout << "The relation is not reflexive.\n";
             }
         default:
             break;
