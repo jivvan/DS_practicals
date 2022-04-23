@@ -125,6 +125,16 @@ int main()
             {
                 cout << "The relation is not reflexive.\n";
             }
+            break;
+        case 4:
+            if (checkTransitive(relMatrix) && checkReflexive(relMatrix) && checkSymmetric(relMatrix))
+            {
+                cout << "The relation is equivalent.\n";
+            }
+            else
+            {
+                cout << "The relation is not equivalent.\n";
+            }
         default:
             break;
         }
